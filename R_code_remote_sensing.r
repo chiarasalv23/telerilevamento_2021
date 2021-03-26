@@ -110,3 +110,48 @@ plot(p224r63_2011$B4_sre, col=clnir)
 
 dev.off()
 
+#DAY 4
+library(raster) #richiamo la libreria raster
+#loading pacchetto sp -> pacchetto con classi e metodi per dati spaziali!
+setwd("c:/lab/") #dico al sistema dove sono i dati con cui devo lavorare...
+p223r63_2011 <- brick("p224r63_2011_masked.grd") #virgolette perché il dataset è esterno ad r
+
+#plot RGB! 
+#Bande landsat
+#B1: blu, B2: verde, B3: rosso, B4: NIR, B5: MIR, B6: TIR (FAR), B7: MIR
+#stretching lineare
+plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin") #immagine a colori naturali RGB
+dev.off()
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "Lin") #sulla componente R abbiamo montato l'IR (la vegetazione riflette tantissimo). Visualizzazione a falsi colori
+dev.off()
+plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "Lin")
+dev.off()
+plotRGB(p224r63_2011, r = 3, g = 2, b = 4, stretch = "Lin")
+dev.off()
+
+#esercizio: fare un multiframe 2x2 con queste 4 visualizzazioni 
+par(mfrow = c(2,2))
+plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin")
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "Lin")
+plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "Lin")
+plotRGB(p224r63_2011, r = 3, g = 2, b = 4, stretch = "Lin")
+
+#creare un pdf direttamente da R
+pdf("ilmioprimopdf.pdf") #sarà nella caertella lab
+par(mfrow = c(2,2))
+plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin")
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "Lin")
+plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "Lin")
+plotRGB(p224r63_2011, r = 3, g = 2, b = 4, stretch = "Lin")
+dev.off()
+
+#histogram stretching
+plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "hist")
+
+#multiframe 3x1 natural colors, green linear, green linear hist
+par(mfrow=c(3,1))
+> plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin")
+> plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="Lin")
+> plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="hist")
+> dev.off()
+
