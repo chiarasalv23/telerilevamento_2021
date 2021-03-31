@@ -150,8 +150,59 @@ plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "hist")
 
 #multiframe 3x1 natural colors, green linear, green linear hist
 par(mfrow=c(3,1))
-> plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin")
-> plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="Lin")
-> plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="hist")
-> dev.off()
+plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin")
+plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="Lin")
+plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="Hist")
+dev.off()
 
+#DAY 5
+#back to 1988...
+#immagine landsat p224r63_1988
+
+#ricordare ad R che vogliamo utilizzare il pacchetto raster (che è già dentro R)
+library(raster)
+#solito procedimento...
+setwd("C:/lab/")
+p224r63_2011 <- brick("p224r63_2011_masked.grd")
+p224r63_2011
+
+#oggi aggiungiamo anche l'immagine del '88
+#MULTITEMPORAL SET
+p224r63_1988 <- brick("p224r63_1988_masked.grd")
+p224r63_1988 #vedo tutte le info
+#eseguiamo un plottaggio selvaggio!
+plot(p224r63_1988) #vari sensori che hanno visto il mondo ad una certa lunghezza d'onda (varie bande)
+
+#passiamo direttamente al plottaggio RGB
+#______________________Promemoria Bande landsat_________________________
+#B1: blu, B2: verde, B3: rosso, B4: NIR, B5: MIR, B6: TIR (FAR), B7: MIR
+#_______________________________________________________________________
+plotRGB(p224r63_1988, r = 3, g = 2, b = 1, stretch = "lin") #Plottaggio true colors!
+dev.off()
+#sfruttiamo l'IR (che per la vegetazione è ottimale!)
+#R: B4; G: B3; B: B2;
+plotRGB(p224r63_1988, r = 4, g = 3, b = 2, stretch = "lin") #plottaggio immagine in falso colore
+dev.off()
+
+#Indagine diacronica (1988 e 2011 a confronto)
+#Fare un par, creare uno schema con due righe e una colonna e inserire 2011 e 1988
+par(mfrow = c(2, 1))
+plotRGB(p224r63_1988, r = 4, g = 3, b = 2, stretch = "lin")
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "lin")
+
+#realizzare un multiframe (par) 2x2 con entrambi i tipi di stretching (lin e hist)
+par(mfrow = c(2, 2))
+#in ordine...
+plotRGB(p224r63_1988, r = 4, g = 3, b = 2, stretch = "lin") #1
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "lin") #2
+plotRGB(p224r63_1988, r = 4, g = 3, b = 2, stretch = "hist") #3
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "hist") #4
+
+#creaiamo un pdf con questi grafici...
+pdf("multitemp.pdf") #sempre dentro la cartella lab! Uso le virgolette perché esco da R
+par(mfrow = c(2, 2))
+plotRGB(p224r63_1988, r = 4, g = 3, b = 2, stretch = "lin")
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "lin")
+plotRGB(p224r63_1988, r = 4, g = 3, b = 2, stretch = "hist")
+plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "hist")
+dev.off()
