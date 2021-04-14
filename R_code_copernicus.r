@@ -2,7 +2,7 @@ R_code_copernicus.r
 Visualizing copernicus data
 #______________________________________
             #FCOVER 
-_______________________________________
+#_______________________________________
 #estensione spaziale della vegetazione!
 #______________________________________
 
