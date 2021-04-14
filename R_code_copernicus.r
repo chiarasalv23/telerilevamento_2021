@@ -1,5 +1,5 @@
-R_code_copernicus.r
-Visualizing copernicus data
+#R_code_copernicus.r
+#Visualizing copernicus data
 #______________________________________
             #FCOVER 
 #_______________________________________
