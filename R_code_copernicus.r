@@ -1,10 +1,10 @@
 R_code_copernicus.r
 Visualizing copernicus data
-______________________________________
-             FCOVER 
-______________________________________
-estensione spaziale della vegetazione!
-______________________________________
+#______________________________________
+            #FCOVER 
+_______________________________________
+#estensione spaziale della vegetazione!
+#______________________________________
 
 install.packages("ncdf4")
 #richiamiamo i due pacchetti...
