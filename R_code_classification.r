@@ -1,5 +1,6 @@
 #R _code_classification.r
 
+# DAY 1
 # Solar Orbiter
 
 library(raster) #per usare la funzione brick()
@@ -33,3 +34,33 @@ sun <- brick("sun.png")
 #faccio la classificazione non supervisionata
 sunc <- unsuperClass(sun, nClasses = 3)
 plot(sunc$map)
+
+
+# DAY 2
+
+# Grand Canyon
+# nome immagine: dolansprings_oli_2013088_canyon_lrg.jpg
+
+library(raster)
+library(RStoolbox)
+setwd("C:/lab/")
+
+#creiamo un brick perché stiamo lavorando con un'immagine RGB (tre livelli)
+gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg")
+#plottaggio RGB
+plotRGB(gc, 1, 2, 3, stretch = "lin")
+#stessa cosa ma con stretch hist
+plotRGB(gc, 1, 2, 3, stretch = "hist")
+
+#iniziamo il processo di classificazione
+#iniziamo con due classi...
+#classificazione non-supervisionata: unsuperClass()
+gcc <- unsuperClass(gc, nClasses = 2)
+#plottaggio
+plot(gcc$map)
+
+#classificazione con 4 classi
+gcc4 <- unsuperClass(gc, nClasses = 4)
+plot(gcc4$map)
+
+# END # 
