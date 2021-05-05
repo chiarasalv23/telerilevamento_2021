@@ -73,4 +73,20 @@ plot(vi1, col = cl)
 vi2<- spectralIndices(defor2, green = 3, red = 2, nir = 1)
 plot(vi2, col = cl)
 
-# ----- END -----
+# DAY 3
+# --- WORLD WIDE NDVI ---
+# Pacchetto rasterdiv
+install.packages("rasterdiv")
+require(rasterdiv) #for world wide NDVI
+#plottiamo il nostro set copNDVI che contiene NDVI medio per ogni 21 Giugno dal 1999 al 2017
+plot(copNDVI)
+#togliamo l'acqua...
+#sovrascrivo il dataset senza i valori...
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) #ai valori NDVI da 253 a 255 assegnamo NA (non assigned)
+plot(copNDVI)
+#per usare levelplot dobbiamo prima...
+require(rasterVis)
+#cosa fa levelplot? mostra la media dei valori sulle righe e sulle colonne
+levelplot(copNDVI)
+
+# --- E N D --- 
