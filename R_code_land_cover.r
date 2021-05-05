@@ -3,7 +3,7 @@
 # LAND-COVER
 # DAY 1
 #working directory 
-setwd("C:/lab/)
+setwd("C:/lab/")
 #librerie
 require(raster)
 require(RStoolbox)
