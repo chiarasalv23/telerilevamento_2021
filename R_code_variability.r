@@ -1,5 +1,7 @@
 # R_code_variability.r
 
+# Ghiacciaio del Similaun
+
 # DAY 1
 
 # librerie
@@ -76,3 +78,77 @@ summary(sentpca$model)
 # Cumulative Proportion       1
 
 # La prima PC spiega il 67.36% delle informazioni originali. 
+
+# DAY 2
+
+# Dichiaro nuovamente le librerie e setto la working directory
+library(ggplot2)
+library(gridExtra)
+library(viridis) # serve per i colori, per colorare i plot di ggplot in modo automatico!
+# sent <- brick("sentinel.png")
+# sentpca <- rasterPCA(sent)
+# plot(sentpca)
+# summary(sentpca)
+# sentpca per vedere tutte le variabilità (vedi day 1)
+# PC1 --> ha più info all'interno dell'immagine
+# Funzione focal per passare la moving window e calcolare la deviazione standard (variabilità di tutti i dati originali) e la riportavamo sul valore centrale. 
+# Sposto la moving window e il processo riparte! 
+
+sentpca$map$PC1 #seleziono solo la PC1...
+# Calcoliamo la variabilità sulla pc1
+# Moving window 3 x 3
+pc1sd3 <- focal(pc1, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
+clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200) 
+plot(pc1sd3, col=clsd) # come cambiano i valori su una singola banda
+# Moving window 5 x 5 
+pc1sd5 <- focal(pc1, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
+clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200) 
+plot(pc1sd5, col=clsd)
+
+# source() test!
+source("source_test_lezione.r") # Per prendere e caricare un codice dall'esterno!
+
+# Plottare i nostri dati tramite ggplot2
+#ggplot() # mi crea una finestra vuota
+ggolot() + 
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer))
+
+ggplot() + 
++ geom_raster(pc1sd3, mapping = aes(x = x, y = y, fill = layer))
+
+# Usando viridis!
+ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
+scale_fill_viridis()
+
+ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
+scale_fill_viridis()  +
+ggtitle("Standard deviation of PC1 by viridis colour scale")
+
+ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
+scale_fill_viridis(option = "magma")  +
+ggtitle("Standard deviation of PC1 by magma colour scale")
+
+# grid arrange
+# associamo ogni plottaggio ad un oggetto...
+p1 <- ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
+scale_fill_viridis()  +
+ggtitle("Standard deviation of PC1 by viridis colour scale")
+
+p2 <- ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
+scale_fill_viridis(option = "magma")  +
+ggtitle("Standard deviation of PC1 by magma colour scale")
+
+p3 <- ggplot() +
+geom_raster(pc1sd5, mapping = aes(x = x, y = y, fill = layer)) +
+scale_fill_viridis(option = "turbo")  +
+ggtitle("Standard deviation of PC1 by turbo colour scale")
+
+grid.arrange(p1, p2, p3, nrow = 1)
+
+# ----- END -----
+
