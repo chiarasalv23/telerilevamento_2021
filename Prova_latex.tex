@@ -1,0 +1,48 @@
+% Prova LaTex!
+
+% \"funzioni{"argomenti"}
+\documentclass[a4paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref} %puntatori?
+\usepackage{graphicx} % pacchetto x parti grafiche
+\usepackage{lineno}
+% \linenumbers
+
+% Titolo
+\title{This is my first LaTex document!}
+\author{Chiara Salvatori $^1$, Simone Plm $^2$} % se ho tanti autori serve 
+
+\begin{document}
+\maketitle
+
+$^1$ Alma Mater Studiorum University of Bologna
+$^2$ SNASA
+% abstract della tesi
+\begin{abstract}
+This is my cool abstract
+
+My thesis is dealing with something...
+
+Congluding: I'M COOL!
+\end{abstract}
+% se voglio andare a capo tra i due lascio una riga
+\section{Introduction}\label{section:intro} % sezione per capitoli!!!
+% \section*{Introduction}senza 1 davanti
+% qui possiamo iniziare a scrivere la tesi di laurehahahaha
+Signoraaaaaaaa...
+
+...i limoniiiiiiii
+\section{Method}
+Methods della tesi. Come ho detto nella sezione \ref{section:intro}
+\subsection{Study area}
+My study area is the land of misanthropy and malaria 
+\subsection{Fields...}
+write something... (Figure \ref{fig:fronk}).
+\begin{figure}
+\include{rana.jpg}
+    \centering
+    \includegraphics[width=1\textwidth]{rana.jpg}
+    \caption{fronk boi w/ cramberries}
+    \label{fig:fronk}
+\end{figure}
+\end{document}
