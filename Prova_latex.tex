@@ -3,10 +3,13 @@
 % \"funzioni{"argomenti"}
 \documentclass[a4paper, 12pt]{article}
 \usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{color}
 \usepackage{hyperref} %puntatori?
 \usepackage{graphicx} % pacchetto x parti grafiche
+\newcommand{\rosso}{\textcolor{red}} %nuova funzione per testo rosso
 \usepackage{lineno}
-% \linenumbers
+\linenumbers
 
 % Titolo
 \title{This is my first LaTex document!}
@@ -14,7 +17,8 @@
 
 \begin{document}
 \maketitle
-
+% letteralmente il menù
+\tableofcontents
 $^1$ Alma Mater Studiorum University of Bologna
 $^2$ SNASA
 % abstract della tesi
@@ -26,16 +30,36 @@ My thesis is dealing with something...
 Congluding: I'M COOL!
 \end{abstract}
 % se voglio andare a capo tra i due lascio una riga
+
 \section{Introduction}\label{section:intro} % sezione per capitoli!!!
 % \section*{Introduction}senza 1 davanti
 % qui possiamo iniziare a scrivere la tesi di laurehahahaha
-Signoraaaaaaaa...
+\textcolor{blue}{Signoraaaaaaaa...}
 
-...i limoniiiiiiii
+\textcolor{yellow}{...i limoniiiiiiii}
+
+As we will se later on, the formula for calculating diversity is quite simple and makes use of a $\sum$.
+
+% citazioni di articoli dalla bibliografia!
+\textbf{Il volo dei lepidotteri} è basato su questo \citep{parlin}.
+
+Altro articolo citato \citep{hersh}.
+
 \section{Method}
-Methods della tesi. Come ho detto nella sezione \ref{section:intro}
+\textit{Methods della tesi}. Come ho detto nella sezione \ref{section:intro}
+formula per calcolare l'entropia di un sistema, indice di Shennon:
+\begin{equation}
+    H = 3 \times 2
+    \label{eq:moltiplica}
+\end{equation}
+\begin{equation}
+    H = - \sum_{i=1}^{6} p_i \times \log{p_{ijm}}
+    \label{eq:shannon}
+\end{equation}
 \subsection{Study area}
 My study area is the land of misanthropy and malaria 
+
+\rosso{questo Blablablablablablabla non va} % togli questo blabla
 \subsection{Fields...}
 write something... (Figure \ref{fig:fronk}).
 \begin{figure}
@@ -45,4 +69,30 @@ write something... (Figure \ref{fig:fronk}).
     \caption{fronk boi w/ cramberries}
     \label{fig:fronk}
 \end{figure}
+
+\section{Results}
+Here are the main results of my thesis:
+\begin{enumerate}
+    \item frogs are fren
+    \item im cool
+\end{enumerate}
+\begin{itemize}
+    \item frogs are fren
+    \item im cool
+\end{itemize}
+\section{Discussion}
+Come abbiamo visto nell'equazione \ref{eq:shannon} blablabla...
+
+Come abbiamo visto anche nell'equazione \ref{eq:moltiplica} blablabla...
+\begin{thebibliography}{9000}
+%
+\bibitem[Hersh et al.(2021)]{hersh}
+Hersh, T.A., Gero, S., Rendell, L. and Whitehead, H. (2021), Using identity calls to detect structure in acoustic datasets. Methods Ecol Evol. Accepted Author Manuscript. https://doi.org/10.1111/2041-210X.13644
+%
+\bibitem[Parlin et al.(2021)]{parlin}
+Parlin, A.F., Stratton, S.M. and Guerra, P.A. (2021), Assaying lepidopteran flight directionality with non-invasive methods that permit repeated use and release after testing. Methods in Ecology and Evolution. Accepted Author Manuscript. https://doi.org/10.1111/2041-210X.13648
+%
+
+\end{thebibliography}
+
 \end{document}
