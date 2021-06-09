@@ -1,0 +1,85 @@
+% presentazione.tex
+
+\documentclass{beamer}
+
+
+\usetheme{Warsaw} % tema della presentazione
+\usecolortheme{seahorse} % per grafica della presentazione 
+\usepackage{listings} % per caricare il codice (R) dall'esterno
+
+\setbeamertemplate{blocks}[rounded][shadow = true]
+% bordo arrotondato e una certa ombreggiatura
+
+\title{My first presentation}
+\author{Chiara Salvatori}
+\institute{Alma Mater Studiorum - Univeristà di Bologna\\
+\bigskip
+\includegraphics[width = 0.5\textwidth]{logo_unibo.png}
+}
+% da qui possiamo iniziare con il documento...
+
+\AtBeginSection[] % Do nothing for \section*
+{   
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents[currentsection,currentsubsection,currentsubsubsection]
+\end{frame}
+} % per fare il sommario all'inizio e alla fine delle sezioni
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+    \begin{frame}
+        \frametitle{This is my first slide!}
+        \scriptsize{In this study I will face remote sensing problems...}
+        % text sizes: https://it.overleaf.com/learn/latex/Font_sizes,_families,_and_styles
+    \end{frame}
+
+%slide elenchi puntati
+\begin{frame} % nuova diapositiva
+\frametitle{Itemizing - Elenchi puntati} %titolo della diapositiva
+\begin{itemize} % inizio dell'elenco puntato
+    \item<1-> Remote sensing is a powerful tool 
+    \item<2-> It can be used for diversity estimate  % tutti gli elementi dell'elenco
+    \item<3-> It can be used in ecological informatics
+\end{itemize}
+\end{frame}
+
+\section{Methods}
+\begin{frame}
+        \frametitle{Inseriamo una formula}
+        \begin{equation}
+            % formula della dev.standard
+            I = \frac{\sqrt[3]{\frac{\displaystyle\sum_{i = 1}^{N} S}{N}}}{\alpha_{\gamma_{\sqrt{\beta}}}}
+            % https://en.wikibooks.org/wiki/LaTeX/Mathematics#Brackets,_braces_and_delimiters
+        \end{equation}
+\end{frame}
+
+\section{Coding}
+\begin{frame}
+\frametitle{Codice R}
+\lstinputlisting[language = R]{code_r.txt}
+\end{frame}
+
+\section{Immages}
+\begin{frame}
+\frametitle{Immagine}
+\centering
+\includegraphics[width = 0.6\textwidth]{swamp.jpg}
+\\ % andare a capo
+\bigskip 
+Questi sono i risultati della mia analisi
+\end{frame}
+
+\begin{frame}{Quattro immagini insieme}
+\centering
+\includegraphics[width = 0.3\textwidth]{swamp.jpg}
+\includegraphics[width = 0.3\textwidth]{swamp.jpg} 
+\\
+\includegraphics[width = 0.3\textwidth]{swamp.jpg}
+\includegraphics[width = 0.3\textwidth]{swamp.jpg}
+\end{frame}
+
+
+\end{document}
