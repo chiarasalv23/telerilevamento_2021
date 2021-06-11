@@ -52,7 +52,7 @@ plot(p224r63_2011$B1_sre) #lego la singola banda al dataset totale
 clb <- colorRampPalette(c("blue", "orange", "green")) (200)
 plot(p224r63_2011$B1_sre, col=clb)
 
-dev.off() #puliamo again...
+# dev.off() #puliamo again...
 
 #funzione par() per righe
 #una riga, due colonne
@@ -70,12 +70,12 @@ dev.off()
 par(mfcol = c(1, 2))
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
-dev.off()
+#dev.off()
 #due righe, una colonna
 par(mfcol = c(2, 1))
 plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
-dev.off()
+#dev.off()
 #plottare le prime 4 bande landsat B1, B2, B3, B4
 #SU 4 RIGHE E 1 COLONNA
 par(mfrow = c(4, 1))
@@ -83,7 +83,7 @@ plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 plot(p224r63_2011$B3_sre)
 plot(p224r63_2011$B4_sre)
-dev.off()
+#dev.off()
 #anche se così viene un po' brutto...
 #adesso mettiamole 2x2 che è più ordinato...
 par(mfrow = c(2,2))
@@ -91,7 +91,7 @@ plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 plot(p224r63_2011$B3_sre)
 plot(p224r63_2011$B4_sre)
-dev.off()
+# dev.off()
 
 #due righe e due colonne creando delle palette che richiamino i colori delle diverse bande...
 par(mfrow = c(2,2))
@@ -108,7 +108,7 @@ plot(p224r63_2011$B3_sre, col=clred)
 clnir <- colorRampPalette(c("red", "orange", "yellow")) (200)
 plot(p224r63_2011$B4_sre, col=clnir)
 
-dev.off()
+# dev.off()
 
 #DAY 4
 library(raster) #richiamo la libreria raster
@@ -121,13 +121,13 @@ p223r63_2011 <- brick("p224r63_2011_masked.grd") #virgolette perché il dataset 
 #B1: blu, B2: verde, B3: rosso, B4: NIR, B5: MIR, B6: TIR (FAR), B7: MIR
 #stretching lineare
 plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin") #immagine a colori naturali RGB
-dev.off()
+#dev.off()
 plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "Lin") #sulla componente R abbiamo montato l'IR (la vegetazione riflette tantissimo). Visualizzazione a falsi colori
-dev.off()
+#dev.off()
 plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "Lin")
-dev.off()
+#dev.off()
 plotRGB(p224r63_2011, r = 3, g = 2, b = 4, stretch = "Lin")
-dev.off()
+#dev.off()
 
 #esercizio: fare un multiframe 2x2 con queste 4 visualizzazioni 
 par(mfrow = c(2,2))
@@ -143,7 +143,7 @@ plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin")
 plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "Lin")
 plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "Lin")
 plotRGB(p224r63_2011, r = 3, g = 2, b = 4, stretch = "Lin")
-dev.off()
+#dev.off()
 
 #histogram stretching
 plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch = "hist")
@@ -153,7 +153,7 @@ par(mfrow=c(3,1))
 plotRGB(p224r63_2011, r = 3, g = 2, b = 1, stretch = "Lin")
 plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="Lin")
 plotRGB(p224r63_2011, r = 3, g = 4, b = 2, stretch="Hist")
-dev.off()
+#dev.off()
 
 #DAY 5
 #back to 1988...
