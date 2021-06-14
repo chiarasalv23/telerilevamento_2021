@@ -13,7 +13,7 @@
 # 7. GgPlot2
 # 8) Vegetation Indexes 
 # 9) Land Cover
-#10) Variability
+# 10) Variability
 #-------------------------------------------------
 
 # 1) R for remote sensing!
