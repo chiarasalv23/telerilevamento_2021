@@ -300,7 +300,7 @@ level.plot(TGr$lst_2005)
 #dev.off()
 levelplot(TGr$lst_2010)
 #dev.off()
-levelplot(TGr$lst_2015)
+levelplot(TGr$lst_2015) 
 #dev.off()
 
 #plottiamo immagini singole utilizzando la colorRampPalette
