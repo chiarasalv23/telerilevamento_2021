@@ -15,6 +15,7 @@
 # 9) Land Cover
 # 10) Variability
 # 11) No2 
+# 12) Spectral signatures
 #-------------------------------------------------
 
 # 1) R for remote sensing!
@@ -958,7 +959,6 @@ summary(en_pca$model) # vedo le statistiche delle componenti, come sono spiegate
 # Fase 10: calcolare la variabilità (dev. st. locale - moving windown) della prima componente
 pc1sd <- focal(en_pca$map$PC1, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd) 
 plot(pc1sd, col = cl)
-
 
 #------------------------ END -------------------------
 
