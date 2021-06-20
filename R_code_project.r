@@ -24,26 +24,21 @@ stack_2020 <- stack(import_2020)
 # BANDE LANDSAT 8 
 # B2: Blue, B3: Green, B4: Red, B5: NIR
 # La B1 non mi serve in questo momento...
-
 # Bande 2017
-nir_2017 <- stack_2017$X046017_2017_B5
-red_2017 <- stack_2017$X046017_2017_B4
-green_2017 <- stack_2017$X046017_2017_B3
+cost_2017 <- stack_2017$X046017_2017_B1
 blue_2017 <- stack_2017$X046017_2017_B2
+green_2017 <- stack_2017$X046017_2017_B3
+red_2017 <- stack_2017$X046017_2017_B4
+nir_2017 <- stack_2017$X046017_2017_B5
+swir_2017 <- stack_2020$X046017_2017_B6
 # Bande 2020
-nir_2020 <- stack_2020$X046017_2020_B5
-red_2020 <- stack_2020$X046017_2020_B4
-green_2020 <- stack_2020$X046017_2020_B3
+cost_2020 <- stack_2020$X046017_2020_B1
 blue_2020 <- stack_2020$X046017_2020_B2
+green_2020 <- stack_2020$X046017_2020_B3
+red_2020 <- stack_2020$X046017_2020_B4
+nir_2020 <- stack_2020$X046017_2020_B5
+swir_2020 <- stack_2020$X046017_2020_B6
 
-# NDVI 
-cl_ndvi <- colorRampPalette(c("lightskyblue", "orange", "yellow"))(300) # Palette per NDVI
-ndvi_2017 <- (nir_2017 - red_2017) / (nir_2017 + red_2017)
-ndvi_2020 <- (nir_2020 - red_2020) / (nir_2020 + red_2020)
-
-par(mfrow = c(1,2))
-plot(ndvi_2017, col = cl_ndvi, main = 'Great Slave Lake, 31/8/2017 NDVI')
-plot(ndvi_2020, col = cl_ndvi, main = 'Great Slave Lake, 20/6/2020 NDVI')
 
 # True color images
 # Creo degli stack con solo le bande VIS per ottenere delle immagini a colori naturali
@@ -54,6 +49,57 @@ par(mfrow = c(1, 2))
 plotRGB(nci_2017, axes = TRUE, stretch = 'lin', main = 'Natural color Great Slave Lake 2017')
 plotRGB(nci_2020, axes = TRUE, stretch = 'lin', main = 'Natural color Great Slave Lake 2020')
 
+# False color images
+fci_2017 <- stack(nir_2017, red_2017, green_2017)
+fci_2020 <- stack(nir_2020, red_2020, green_2020)
+# plot
+par(mfrow = c(1,2))
+plotRGB(fci_2017, axes = TRUE, stretch = 'lin', main = 'False color Great Slave Lake 2017')
+plotRGB(fci_2020, axes = TRUE, stretch = 'lin', main = 'False color Great Slave Lake 2020')
+
+# Bands combination for emphasizing land and water
+land_water_comb_2017 <- stack(nir_2017, swir_2017, red_2017)
+land_water_comb_2020 <- stack(nir_2020, swir_2020, red_2020)
+# plot
+par(mfrow = c(1, 2))
+plotRGB(land_water_comb_2017, axes = TRUE, stretch = 'lin', main = 'Bands combination for land and water 2017')
+plotRGB(land_water_comb_2020, axes = TRUE, stretch = 'lin', main = 'Band combination for land and water 2020')
+
+
+# NDVI - Indice di vegetazione normalizzato 
+cl_ndvi <- colorRampPalette(c("dark red", "red", "orange", "yellow","lime green", "green", "dark green"))(500)) # Palette per NDVI
+ndvi_2017 <- (nir_2017 - red_2017) / (nir_2017 + red_2017)
+ndvi_2020 <- (nir_2020 - red_2020) / (nir_2020 + red_2020)
+
+par(mfrow = c(1,2))
+plot(ndvi_2017, col = cl_ndvi, main = 'Great Slave Lake, 31/8/2017 NDVI')
+plot(ndvi_2020, col = cl_ndvi, main = 'Great Slave Lake, 20/6/2020 NDVI')
+
 # Differenza tra i due NDVI
 diff_ndvi <- ndvi_2020 - ndvi_2017
-plot(diff_ndvi, col = cl_ndvi)
+plot(diff_ndvi, col = cl_ndvi, main = 'Cosa è cambiato?')
+
+# Unsupervised classification con 5 classi
+uns_class_2017 <- unsuperClass(stack_2017, nClasses = 5)
+uns_class_2020 <- unsuperClass(stack_2020, nClasses = 5)
+
+# plot che va rivisto...
+par(mfrow = c(1, 2))
+set.seed(5)
+plot(uns_class_2017$map, col = cl_uns_class, main = 'Unsupervised Class. 2017')
+plot(uns_class_2020$map, col = cl_uns_class, main = 'Unsupervised Class. 2020')
+
+# Variability - Calcoliamo la variabilità dell'immagine
+# su NDVI (2017 e 2020)
+# utilizziamo la funzione focal() per far passare la moving window sull'immagine
+
+
+
+
+
+# PCA - Analisi delle componenti principali
+
+
+
+
+
