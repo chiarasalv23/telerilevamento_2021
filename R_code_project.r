@@ -108,6 +108,75 @@ plot(uns_class_2020$map, col = cl_uns_class, main = 'Unsupervised Class. 2020')
 
 
 # PCA - Analisi delle componenti principali
+# Creo una palette
+# Palette più bella mai creata!
+cl_pca <- colorRampPalette(c('dark blue', 'aquamarine', 'yellow', 'orange')) (200)
+
+# uso solo le tre bande del visibile, per ora (?)
+pca_2017 <- rasterPCA(nci_2017)
+pca_2020 <- rasterPCA(nci_2020)
+
+# visualizzo le informazioni...
+pca_2017$model
+# Call:
+# princomp(cor = spca, covmat = covMat[[1]])
+# Standard deviations:
+#    Comp.1    Comp.2    Comp.3 
+# 1228.7888  202.1254  161.2625 
+#  3  variables and  65220551 observations.
+
+pca_2020$model
+# Call:
+# princomp(cor = spca, covmat = covMat[[1]])
+# Standard deviations:
+#    Comp.1    Comp.2    Comp.3 
+# 1699.3247  330.2557  222.8458 
+#  3  variables and  65382171 observations.
+
+# Se però usiamo summary() otteniamo delle info più dettagliate circa la 
+# variabilità che spiegano le diverse bande.
+summary(pca_2017$model)
+# Importance of components:
+#                             Comp.1       Comp.2       Comp.3
+# Standard deviation     1228.788848 202.12537869 161.26252473
+# Proportion of Variance    0.957597   0.02591015   0.01649283 (prop di variabilità spiegata)
+# Cumulative Proportion     0.957597   0.98350717   1.00000000
+
+# La componente 1 spiega il 95,75% delle informazioni.
+
+summary(pca_2020$model)
+#Importance of components:
+#                              Comp.1       Comp.2       Comp.3
+# Standard deviation     1699.3247133 330.25574695 222.84584888
+# Proportion of Variance    0.9478967   0.03580215   0.01630112
+# Cumulative Proportion     0.9478967   0.98369888   1.00000000
+
+# La componente 1 spiega il 94,78% delle informazioni.
+
+# creo delle variabili e gli assegno SOLO la PC1 di ogni anno
+pc1_2017 <- pca_2017$map$PC1
+pc1_2020 <- pca_2020$map$PC1
+
+# faccio un par() e plotto le pc1...
+par(mfrow = c(1, 2))
+plot(pc1_2017, col = cl_pca, main = 'PC1 2017')
+plot(pc1_2020, col = cl_pca, main = 'PC1 2020')
+
+# Calcoliamo la variabilità sulla pc1 per entrambi gli anni 
+# Faccio passare la moving windown sulla pc1 2017 e poi 2020.
+# Uso questa palette:
+clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200)
+# funzione focal():
+pc1_2017_sd3 <- focal(pc1_2017, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
+pc1_2020_sd3 <- focal(pc1_2020, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
+# plot():
+par(mfrow = c(1,2))
+plot(pc1_2017_sd3, col = cl_sd, main = '2017')
+plot(pc1_2020_sd3, col = cl_sd, main = '2020')
+
+#
+
+
 
 
 
