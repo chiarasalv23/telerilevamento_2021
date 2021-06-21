@@ -13,7 +13,7 @@ require(lattice)
 setwd("C:/lab/canada/")
 
 # 1)
-# Creo delle liste con tutti i files contententi il pattern '2017'. 
+# Creo delle liste con tutti i files contententi il pattern '2017' e poi '2020'. 
 # Così in queste liste ci saranno tutti i file del 2017 (bande singole)
 list_2017 <- list.files(pattern = "2017")
 list_2020 <- list.files(pattern = '2020')
@@ -233,15 +233,41 @@ pairs(fci_2020)
 uns_class_2017 <- unsuperClass(stack_2017, nClasses = 5)
 uns_class_2020 <- unsuperClass(stack_2020, nClasses = 5)
 
-# plot che va rivisto...
+set.seed(420)
+par(mfrow = c(1,2))
+plot(uns_class_2017$map, col = cl_uns_class, main = 'Unsupervised class. 2017')
+plot(uns_class_2020$map, col = cl_uns_class, main = 'Unsupervised class. 2020')
+
+
+
+# 8) Firme spettrali
+# Estrazione delle firme spettrali con funzione click()
+# prima plotto il dato da cui voglio estrarre la firma e poi uso la funzione 
+# click() per cliccare direttamente sull'immagine il pixel da cui voglio estrarre la firma.
+plotRGB(land_water_comb_2017, axes = TRUE, stretch = 'lin', main = 'Bands combination for land and water 2017')
+click(land_water_comb_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
+
+#        x       y     cell X046017_2017_B5 X046017_2017_B6 X046017_2017_B4
+# 1 717810 6824910 30747581            7696            7357            9845 # acqua bassa/torbida
+# 2 627120 6815880 33164899            7249            7322            7340 # acqua profonda/limpida
+# 3 572970 6856020 22404236           14236           13413            8991 # suolo verde chiaro
+# 4 681720 6722040 58318967            9547           10400            8255 # suolo verde scuro
+# 5 651930 6757230 48885881           12784           10261            8105 # suolo marrone 
+
+plotRGB(land_water_comb_2020, axes = TRUE, stretch = 'lin', main = 'Bands combination for land and water 2020')
+click(land_water_comb_2020, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
+
+#        x       y     cell X046017_2020_B5 X046017_2020_B6 X046017_2020_B4
+# 1 688680 6825090 30817034            7849            7540           10521
+# 2 617970 6824130 31072309            7192            7358            7736
+# 3 557580 6845220 25410443            9220            9356           11108
+# 4 697560 6741270 53311824           12457           13664            9697
+# 5 649800 6746880 51804695           12882           10562            8289
+
 par(mfrow = c(1, 2))
-plot(uns_class_2017$map, col = cl_uns_class, main = 'Unsupervised Class. 2017')
-plot(uns_class_2020$map, col = cl_uns_class, main = 'Unsupervised Class. 2020')
-
-
-
-
-
+plotRGB(fci_2017, axes = TRUE, stretch = 'lin', main = 'False color Great Slave Lake 2017')
+plotRGB(land_water_comb_2017, axes = TRUE, stretch = 'lin', main = 'False color Great Slave Lake 2017')
+# questo mi dice che forse dovrei provare anche con fci...
 
 
 
