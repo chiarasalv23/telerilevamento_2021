@@ -4,13 +4,13 @@
 
 # Summary:
 
-# 1. Remote Sensing - first code
-# 2. Time Series
-# 3. Copernicus data
-# 4. knitr 
-# 5. Multuvariate analysis
-# 6. Classification - Solar Orbiter
-# 7. GgPlot2
+# 1) Remote Sensing - first code
+# 2) Time Series
+# 3) Copernicus data
+# 4) knitr 
+# 5) Multuvariate analysis
+# 6) Classification - Solar Orbiter
+# 7) GgPlot2
 # 8) Vegetation Indexes 
 # 9) Land Cover
 # 10) Variability
