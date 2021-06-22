@@ -201,7 +201,7 @@ plot(pc2_fci_2020, col = cl_pca, main = 'PC2 fci 2020')
 # Calcoliamo la variabilità sulla pc1 per entrambi gli anni 
 # Faccio passare la moving windown sulla pc1 2017 e poi 2020.
 # Uso questa palette:
-clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200)
+cl_sd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200)
 # 6.1) per dato nci
 # funzione focal():
 pc1_2017_sd3 <- focal(pc1_2017, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
@@ -230,15 +230,36 @@ pairs(fci_2020)
 
 # 7)
 # Unsupervised classification con 5 classi
-uns_class_2017 <- unsuperClass(stack_2017, nClasses = 5)
-uns_class_2020 <- unsuperClass(stack_2020, nClasses = 5)
+# su immagine a colori naturali (nci)
+unscl_nci_2017 <- unsuperClass(nci_2017, nClasses = 5)
+unscl_nci_2020 <- unsuperClass(nci_2020, nClasses = 5)
 
-set.seed(420)
-par(mfrow = c(1,2))
-plot(uns_class_2017$map, col = cl_uns_class, main = 'Unsupervised class. 2017')
-plot(uns_class_2020$map, col = cl_uns_class, main = 'Unsupervised class. 2020')
+set.seed(23)
+par(mfrow = c(1, 2))
+plot(unscl_nci_2017$map, col = cl_uns_class, main = 'Uns. Class 2017')
+plot(unscl_nci_2020$map, col = cl_uns_class, main = 'Uns. Class 2020')
 
+# su immagine a falsi colori (fci)
+unscl_fci_2017 <- unsuperClass(fci_2017, nClasses = 5)
+unscl_fci_2020 <- unsuperClass(fci_2020, nClasses = 5)
 
+set.seed(23)
+par(mfrow = c(1, 2))
+plot(unscl_fci_2017$map, col = cl_uns_class, main = 'Uns. Class 2017')
+plot(unscl_fci_2020$map, col = cl_uns_class, main = 'Uns. Class 2020')
+
+# proviamo se adesso funziona...
+freq(unscl_nci_2017$map)
+s_nci_2017 <- (1911633 + 13795822 + 14030951 + 10630775 + 411583 + 24439787)
+prop_nci_2017 <- freq(unscl_nci_2017$map)/s_nci_2017
+prop_nci_2017
+# value       count
+# [1,] 1.533259e-08 0.029310286
+# [2,] 3.066518e-08 0.211525689
+# [3,] 4.599777e-08 0.215130826
+# [4,] 6.133036e-08 0.162997320
+# [5,] 7.666295e-08 0.006310634
+# [6,]           NA 0.374725246
 
 # 8) Firme spettrali
 # Estrazione delle firme spettrali con funzione click()
@@ -247,6 +268,7 @@ plot(uns_class_2020$map, col = cl_uns_class, main = 'Unsupervised class. 2020')
 plotRGB(land_water_comb_2017, axes = TRUE, stretch = 'lin', main = 'Bands combination for land and water 2017')
 click(land_water_comb_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
 
+# mi da i valori di riflettanza nelle diverse bande...
 #        x       y     cell X046017_2017_B5 X046017_2017_B6 X046017_2017_B4
 # 1 717810 6824910 30747581            7696            7357            9845 # acqua bassa/torbida
 # 2 627120 6815880 33164899            7249            7322            7340 # acqua profonda/limpida
@@ -269,6 +291,78 @@ plotRGB(fci_2017, axes = TRUE, stretch = 'lin', main = 'False color Great Slave 
 plotRGB(land_water_comb_2017, axes = TRUE, stretch = 'lin', main = 'False color Great Slave Lake 2017')
 # questo mi dice che forse dovrei provare anche con fci...
 
+plotRGB(fci_2017, axes = TRUE, stretch = 'lin', main = 'Fci 2017')
+click(fci_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
 
+# mi da i valori di riflettanza nelle diverse bande...
+# x       y     cell X046017_2017_B5 X046017_2017_B4 X046017_2017_B3
+# 1 714900 6827370 30088122            7665            9898            9863
+# 2 607800 6819900 32086761            7245            7433            7767
+# 3 658620 6751620 50389771           14715            8431            8604
+# 4 639690 6751140 50517796           17359           15838           14300
+# 5 697470 6716250 59871405            8610            8155            8090
 
+plotRGB(fci_2020, axes = TRUE, stretch = 'lin', main = 'fci 2020')
+click(fci_2020, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
+
+# x       y     cell X046017_2020_B5 X046017_2020_B4 X046017_2020_B3
+# 1 683550 6816540 33111398            9584           11353           10512
+# 2 610200 6827040 30291103            7143            7432            7946
+# 3 638640 6725760 57472227           14117            8891            9158
+# 4 639630 6750690 50781879           16718           12602           11797
+# 5 696510 6730260 56266506           11252            9208            9180
+
+# Voglio provare a creare un dataframe con le percentuali di copertura concentrandomi però sull'acqua...
+# uso il dato fci 2017!!!
+band_fci <- c(5, 4, 3)
+water_1_fci_2017 <- c(7665, 9898, 9863)
+water_2_fci_2017 <- c(7245, 7433, 7767)
+# con data frame creo la tabella...
+spect_water_fci_2017 <- data.frame(band_fci, water_1_fci_2017, water_2_fci_2017)
+spect_water_fci_2017
+# band_fci water_1_fci_2017 water_2_fci_2017
+# 1        5             7665             7245
+# 2        4             9898             7433
+# 3        3             9863             7767
+
+# plotto le firme spettrali dell'acqua
+ggplot(spect_water_fci_2017, aes(x = band_fci)) +
+geom_line(aes(y = water_1_fci_2017), color = 'blue') +
+geom_line(aes(y = water_2_fci_2017), color = 'dark blue') +
+labs(x = "bands",y = "reflectance")
+
+#adesso uso il dato fci 2020!!!
+water_1_fci_2020 <- c(9584, 11353, 10512)
+water_2_fci_2020 <- c(7143, 7432, 7946)
+spect_water_fci_2020 <- data.frame(band_fci, water_1_fci_2020, water_2_fci_2020)
+spect_water_fci_2020
+# band_fci water_1_fci_2020 water_2_fci_2020
+# 1        5             9584             7143
+# 2        4            11353             7432
+# 3        3            10512             7946
+
+# plotto le firme spettrali dell'acqua
+ggplot(spect_water_fci_2020, aes(x = band_fci)) +
+geom_line(aes(y = water_1_fci_2020), color = 'blue') +
+geom_line(aes(y = water_2_fci_2020), color = 'dark blue') +
+labs(x = "bands",y = "reflectance")
+
+# firme spettrali del 2017 e 2020 a confronto...
+ggplot(spect_water_fci_2017, aes(x = band_fci)) +
+geom_line(aes(y = water_1_fci_2017), color = 'blue') +
+geom_line(aes(y = water_2_fci_2017), color = 'dark blue') +
+geom_line(aes(y = water_1_fci_2020), color = 'green') +
+geom_line(aes(y = water_2_fci_2020), color = 'dark green') +
+labs(x = "bands",y = "reflectance")
+
+# valutazione qualità dell'acqua...
+lwq_2017 <- brick("c_gls_LWQ1km_201709010000_GLOBE_OLCI_V1.2.nc")
+lwq_2018 <- brick("c_gls_LWQ1km_201806210000_GLOBE_OLCI_V1.2.nc")
+# plot
+par(mfrow = c(1, 2))
+plot(lwq_extent_2017, col = cl_turb, main = 'Lake water quality 2017')
+plot(lwq_extent_2018, col = cl_turb, main = 'Lake water quality 2018')
+
+diff_lwq <- lwq_extent_2018 - lwq_extent_2017
+plot(diff_lwq, col = cl_turb, main = 'LWQ difference from 2017 to 2018')
 
