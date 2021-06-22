@@ -347,13 +347,63 @@ geom_line(aes(y = water_1_fci_2020), color = 'blue') +
 geom_line(aes(y = water_2_fci_2020), color = 'dark blue') +
 labs(x = "bands",y = "reflectance")
 
-# firme spettrali del 2017 e 2020 a confronto...
-ggplot(spect_water_fci_2017, aes(x = band_fci)) +
-geom_line(aes(y = water_1_fci_2017), color = 'blue') +
-geom_line(aes(y = water_2_fci_2017), color = 'dark blue') +
-geom_line(aes(y = water_1_fci_2020), color = 'green') +
-geom_line(aes(y = water_2_fci_2020), color = 'dark green') +
+# Estraggo le firme spettrali dall'immagine true colors (nci)
+# 2017
+plotRGB(nci_2017, axes = TRUE, stretch = 'lin', main = 'Natural color image 2017')
+click(nci_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
+# x       y     cell X046017_2017_B4 X046017_2017_B3 X046017_2017_B2
+# 1 705750 6833640 28407248            9290            9654            8322
+# 2 608130 6810840 34515154            7352            7570            7475
+# 3 548340 6807630 35373548            9531            9492            8776
+# 4 661050 6753810 49802859            8418            8527            7768
+# 5 683400 6722790 58117998            8265            8033            7720
+
+# 2020
+plotRGB(nci_2020, axes = TRUE, stretch = 'lin', main = 'Natural color image 2020')
+click(nci_2020, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
+
+# x       y     cell X046017_2020_B4 X046017_2020_B3 X046017_2020_B2
+# 1 687570 6829710 29577143           10543           10283            8779
+# 2 591630 6807330 35579991            7499            7935            7691
+# 3 547320 6816900 33010245            9431            9884            8308
+# 4 623160 6732420 55684389            9305            9266            8351
+# 5 688920 6716430 59977764            8804            9061            8248
+
+# inizio creando dei dataframes...
+# 2017
+band_nci <- c(4, 3, 2)
+water_1_nci_2017 <- c(9290, 9654, 8322)
+water_2_nci_2017 <- c(7352, 7570, 7475)
+# 2020 
+water_1_nci_2020 <- c(10543, 10283, 8779)
+water_2_nci_2020 <- c(7499, 7935, 7691)
+
+spect_water_nci_2017 <- data.frame(band_nci, water_1_nci_2017, water_2_nci_2017)
+spect_water_nci_2017
+#   band_nci water_1_nci_2017 water_2_nci_2017
+# 1        4             9290             7352
+# 2        3             9654             7570
+# 3        2             8322             7475
+
+spect_water_nci_2020 <- data.frame(band_nci, water_1_nci_2020, water_2_nci_2020)
+spect_water_nci_2020
+#   band_nci water_1_nci_2020 water_2_nci_2020
+# 1        4            10543             7499
+# 2        3            10283             7935
+# 3        2             8779             7691
+
+# plotto le firme spettrali 2017...
+ggplot(spect_water_nci_2017, aes(x = band_nci)) +
+geom_line(aes(y = water_1_nci_2017), color = 'blue') +
+geom_line(aes(y = water_2_nci_2017), color = 'dark blue') +
 labs(x = "bands",y = "reflectance")
+
+#...e 2020!
+ggplot(spect_water_nci_2020, aes(x = band_nci)) +
+geom_line(aes(y = water_1_nci_2020), color = 'blue') +
+geom_line(aes(y = water_2_nci_2020), color = 'dark blue') +
+labs(x = "bands",y = "reflectance")
+
 
 # valutazione qualità dell'acqua...
 lwq_2017 <- brick("c_gls_LWQ1km_201709010000_GLOBE_OLCI_V1.2.nc")
@@ -365,4 +415,3 @@ plot(lwq_extent_2018, col = cl_turb, main = 'Lake water quality 2018')
 
 diff_lwq <- lwq_extent_2018 - lwq_extent_2017
 plot(diff_lwq, col = cl_turb, main = 'LWQ difference from 2017 to 2018')
-
