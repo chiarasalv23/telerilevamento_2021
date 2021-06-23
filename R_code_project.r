@@ -93,8 +93,7 @@ plot(ndvi_2020, col = cl_ndvi, main = 'Great Slave Lake, 20/6/2020 NDVI')
 
 # Differenza tra i due NDVI
 diff_ndvi <- ndvi_2020 - ndvi_2017
-plot(diff_ndvi, col = cl_ndvi, main = 'Cosa è cambiato?')
-
+plot(diff_ndvi, col = cl_ndvi, main = 'Difference NDVI from 2017 to 2020')
 
 
 # 5)
@@ -106,6 +105,10 @@ cl_pca <- colorRampPalette(c('darkblue', 'aquamarine', 'yellow', 'red')) (300)
 # uso solo le tre bande del visibile, per ora (?)
 pca_2017 <- rasterPCA(nci_2017)
 pca_2020 <- rasterPCA(nci_2020)
+
+# se plotto mi escono tutte e tre le componenti...
+# non serve che plotto...
+# vediamo le statistiche sulle componenti
 
 # visualizzo le informazioni...
 pca_2017$model
@@ -148,12 +151,15 @@ summary(pca_2020$model)
 pca_fci_2017 <- rasterPCA(fci_2017)
 pca_fci_2020 <- rasterPCA(fci_2020)
 
+# statistiche sulle componenti...
 summary(pca_fci_2017$model)
 # Importance of components:
 #                              Comp.1       Comp.2       Comp.3
 # Standard deviation     3238.3716046 1.012720e+03 1.669215e+02
 # Proportion of Variance    0.9087159 8.886973e-02 2.414346e-03
 # Cumulative Proportion     0.9087159 9.975857e-01 1.000000e+00
+
+# la componente 1 spiega il 90,87% delle informazioni.
 
 summary(pca_fci_2020$model)
 # Importance of components:
@@ -162,6 +168,8 @@ summary(pca_fci_2020$model)
 # Proportion of Variance    0.8591984    0.1365918 4.209824e-03
 # Cumulative Proportion     0.8591984    0.9957902 1.000000e+00
 
+# la componente 1 spiega l'85,91% delle informazioni.
+
 # creo delle variabili e gli assegno SOLO la PC1 di ogni anno
 pc1_2017 <- pca_2017$map$PC1
 pc1_2020 <- pca_2020$map$PC1
@@ -169,7 +177,6 @@ pc1_2020 <- pca_2020$map$PC1
 # lo faccio anche per fci
 pc1_fci_2017 <- pca_fci_2017$map$PC1
 pc1_fci_2020 <- pca_fci_2020$map$PC1
-
 
 # faccio un par() e plotto le pc1...
 par(mfrow = c(1, 2))
@@ -197,6 +204,7 @@ plot(pc2_fci_2017, col = cl_pca, main = 'PC2 fci 2017')
 plot(pc2_2020, col = cl_pca, main = 'PC2 nci 2020')
 plot(pc2_fci_2020, col = cl_pca, main = 'PC2 fci 2020')
 
+
 # 6)
 # Calcoliamo la variabilità sulla pc1 per entrambi gli anni 
 # Faccio passare la moving windown sulla pc1 2017 e poi 2020.
@@ -211,7 +219,6 @@ par(mfrow = c(1,2))
 plot(pc1_2017_sd3, col = cl_sd, main = '2017')
 plot(pc1_2020_sd3, col = cl_sd, main = '2020')
 
-# prova a calcolare anche la media no?
 
 # stessa cosa per fci
 pc1_fci_2017_sd3 <- focal(pc1_fci_2017, matrix(1/9, nrow = 3, ncol = 3), fun = sd)
