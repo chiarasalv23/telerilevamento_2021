@@ -34,7 +34,7 @@
 \begin{document}
 \maketitle
 \section{Introduction}
-% Slide 2
+% Slide 1
 \begin{frame}{The data}
     I used Landsat-8 data downloaded from USGS portal. \\ I chose the data of the same area in two different year, 2017 and 2020. The study area is under path 046 and row 017. The datasets contains one raster per band. \\ 
     \bigskip
@@ -49,21 +49,16 @@
     All the bands that I have used have 30m spatial resolution.
 \end{frame}
 
-% Slide 4
+% Slide 2
 \section{Let's start coding!}
 \begin{frame}{Let's start coding!}
- This is how I started: I created a stack per year using the bands I needed for my analisys!
+ This is how I started:
  \bigskip
-    \footnotesize{\lstinputlisting[language=R]{1_latex.r}}
+    \footnotesize{\lstinputlisting[language=R]{intro_latex.r}}
     \
 \end{frame}
 
-\begin{frame}%{Let's start coding!}
- I created a variable for every band for every year to work smarter!\\
-    \footnotesize{\lstinputlisting[language=R]{2_latex.r}}
-    \
-\end{frame}
-% Slide 5
+% Slide 3
 \begin{frame}%{Let's start coding!}
  Now I started to create the first plots with plotRGB():\\
  I created a stack containing all the bands for combinating a true color image! In order: \textcolor{red}{Red}, \textcolor{green}{Green} and \textcolor{blue}{Blue}.
@@ -73,7 +68,7 @@
     %I obviously used a par() and did the same for 2020!!
 \end{frame}
 
-% Slide 6
+% Slide 4
 \begin{frame}%{Let's start coding!}
  I did the same procedure with other bands combinations, for False color image:  Bands: \textcolor{orange}{NIR}, \textcolor{red}{Red} and \textcolor{blue}{Blue}.
     \scriptsize{\lstinputlisting[language=R]{4_latex.r}}
@@ -81,14 +76,7 @@
     I obviously used a par() and did the same for 2020!!
 \end{frame}
 
-% Slide 7
-\begin{frame}%{Let's start coding!}
- I tried another cool combination using \textcolor{orange}{NIR}, \textcolor{purple}{SWIR} and \textcolor{red}{Red}.
-    \includegraphics[width=1\textwidth]{Rplot_othercomb_2017_2020.jpeg}\\
-    Useful for emphasizing land and water!!
-\end{frame}
-
-% Slide 8
+% Slide 85
 \section{NDVI - Normalized Vegetation Index}
 \begin{frame}{NDVI - Normalized Vegetation Index}
 The NDVI is an index used to study the condition of vegetation and biomass. 
@@ -101,13 +89,13 @@ The NDVI is an index used to study the condition of vegetation and biomass.
     
 \end{frame}
 
-% Slide 9
+% Slide 6
 \begin{frame}%{NDVI}
     The result of the plot: 
     \includegraphics[width=1.05\textwidth]{Rplot_ndvi_2017_2020.jpeg}\\
 \end{frame}
 
-% Slide 10
+% Slide 7
 \begin{frame}
 The difference NDVI plot:
 \scriptsize{\lstinputlisting[language=R]{6_latex.r}}
