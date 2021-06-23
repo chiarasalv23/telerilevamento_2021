@@ -291,7 +291,7 @@ plotRGB(fci_2017, axes = TRUE, stretch = 'lin', main = 'False color Great Slave 
 plotRGB(land_water_comb_2017, axes = TRUE, stretch = 'lin', main = 'False color Great Slave Lake 2017')
 # questo mi dice che forse dovrei provare anche con fci...
 
-plotRGB(fci_2017, axes = TRUE, stretch = 'lin', main = 'Fci 2017')
+plotRGB(fci_2017, axes = TRUE, stretch = 'lin', main = 'False color image 2017')
 click(fci_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
 
 # mi da i valori di riflettanza nelle diverse bande...
@@ -302,7 +302,7 @@ click(fci_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = '
 # 4 639690 6751140 50517796           17359           15838           14300
 # 5 697470 6716250 59871405            8610            8155            8090
 
-plotRGB(fci_2020, axes = TRUE, stretch = 'lin', main = 'fci 2020')
+plotRGB(fci_2020, axes = TRUE, stretch = 'lin', main = 'False color image 2020')
 click(fci_2020, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
 
 # x       y     cell X046017_2020_B5 X046017_2020_B4 X046017_2020_B3
@@ -326,6 +326,7 @@ spect_water_fci_2017
 # 3        3             9863             7767
 
 # plotto le firme spettrali dell'acqua
+# 2017
 ggplot(spect_water_fci_2017, aes(x = band_fci)) +
 geom_line(aes(y = water_1_fci_2017), color = 'blue') +
 geom_line(aes(y = water_2_fci_2017), color = 'dark blue') +
@@ -342,6 +343,7 @@ spect_water_fci_2020
 # 3        3            10512             7946
 
 # plotto le firme spettrali dell'acqua
+# 2020
 ggplot(spect_water_fci_2020, aes(x = band_fci)) +
 geom_line(aes(y = water_1_fci_2020), color = 'blue') +
 geom_line(aes(y = water_2_fci_2020), color = 'dark blue') +
@@ -405,12 +407,18 @@ geom_line(aes(y = water_2_nci_2020), color = 'dark blue') +
 labs(x = "bands",y = "reflectance")
 
 
-# valutazione qualità dell'acqua...
+# PROVA QUASI FALLIMENTARE - valutazione qualità dell'acqua...
 lwq_2017 <- brick("c_gls_LWQ1km_201709010000_GLOBE_OLCI_V1.2.nc")
 lwq_2018 <- brick("c_gls_LWQ1km_201806210000_GLOBE_OLCI_V1.2.nc")
 
-# crop()
+# crop() 
 ext <- extention(-117, -122, 60, 63)
+ext
+# class      : Extent 
+# xmin       : -117 
+# xmax       : -112 
+# ymin       : 60 
+# ymax       : 63 
 lwq_extent_2017 <- crop(lwq_2017, ext)
 lwq_extent_2020 <- crop(lwq_2020, ext)
 
