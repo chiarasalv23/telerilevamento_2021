@@ -1,4 +1,4 @@
-# Latex_project_exam.tex
+Latex_project_exam.tex
 
 \documentclass{beamer}
 \usepackage[utf8]{inputenc}
@@ -12,29 +12,27 @@
 
 % % block styles
 \setbeamertemplate{blocks}[rounded][shadow=true]
-\title{Great Slave Lake (Canada, NWT)
-\subtitle{Vegetation and Water analisys using Landsat-8 data}
-\\
+\title{{Great Slave Lake (Canada, NWT)}
+\subtitle{{Vegetation and Water analisys using Landsat-8 data}}
 %\footnotesize{Vegetation and Water analisys using Landsat-8 and
 % Sentinel-3 OLCI data}
 }
  \date{} 
 \author{\footnotesize{Student: Chiara Salvatori}}
-% \date{June 2021}
 \institute{
  Esame: Telerilevamento Geo-Ecologico.
  
     Professore: Duccio Rocchini
     \\
- \bigskip
+ \smallskip
  \includegraphics[width=0.45\textwidth]{great_slave_lake_intro.jpg}
 }
 
 % inizio delle slides...
 \begin{document}
 \maketitle
-\section{Introduction}
-% Slide 1
+%\section{Introduction}
+% Slide 2
 \begin{frame}{The data}
     I used Landsat-8 data downloaded from USGS portal. \\ I chose the data of the same area in two different year, 2017 and 2020. The study area is under path 046 and row 017. The datasets contains one raster per band. \\ 
     \bigskip
@@ -49,34 +47,35 @@
     All the bands that I have used have 30m spatial resolution.
 \end{frame}
 
-% Slide 2
+% Slide 4
 \section{Let's start coding!}
 \begin{frame}{Let's start coding!}
- This is how I started:
+ This is how I started: 
+ (But this is just a little example...)
  \bigskip
-    \footnotesize{\lstinputlisting[language=R]{intro_latex.r}}
+    \texttt{\scriptsize{\lstinputlisting[language=R]{intro_latex.r}}}
     \
 \end{frame}
 
-% Slide 3
+% Slide 5
 \begin{frame}%{Let's start coding!}
  Now I started to create the first plots with plotRGB():\\
  I created a stack containing all the bands for combinating a true color image! In order: \textcolor{red}{Red}, \textcolor{green}{Green} and \textcolor{blue}{Blue}.
  For exemple: 
-    \scriptsize{\lstinputlisting[language=R]{3_latex.r}}
+    \texttt{\scriptsize{\lstinputlisting[language=R]{3_latex.r}}}
     \includegraphics[width=1\textwidth]{Rplot_par_nci_2017_2020.jpeg}\\
     %I obviously used a par() and did the same for 2020!!
 \end{frame}
 
-% Slide 4
+% Slide 6
 \begin{frame}%{Let's start coding!}
  I did the same procedure with other bands combinations, for False color image:  Bands: \textcolor{orange}{NIR}, \textcolor{red}{Red} and \textcolor{blue}{Blue}.
-    \scriptsize{\lstinputlisting[language=R]{4_latex.r}}
+    \texttt{\scriptsize{\lstinputlisting[language=R]{4_latex.r}}}
     \includegraphics[width=1\textwidth]{Rplot_fci_2017_2020.jpeg}\\
     I obviously used a par() and did the same for 2020!!
 \end{frame}
 
-% Slide 85
+% Slide 8
 \section{NDVI - Normalized Vegetation Index}
 \begin{frame}{NDVI - Normalized Vegetation Index}
 The NDVI is an index used to study the condition of vegetation and biomass. 
@@ -84,23 +83,125 @@ The NDVI is an index used to study the condition of vegetation and biomass.
 \begin{equation}
     NDVI = \frac{\textcolor{orange}{NIR} - \textcolor{red}{RED}}{\textcolor{orange}{NIR} + \textcolor{red}{RED}}
 \end{equation}
-  \scriptsize{\lstinputlisting[language=R]{5_latex.r}}
+  \texttt{\scriptsize{\lstinputlisting[language=R]{5_latex.r}}}
     %\includegraphics[width=1\textwidth]{Rplot_ndvi_2017_2020.jpeg}\\
     
 \end{frame}
 
-% Slide 6
+% Slide 9
 \begin{frame}%{NDVI}
     The result of the plot: 
     \includegraphics[width=1.05\textwidth]{Rplot_ndvi_2017_2020.jpeg}\\
 \end{frame}
 
-% Slide 7
+% Slide 10
 \begin{frame}
 The difference NDVI plot:
-\scriptsize{\lstinputlisting[language=R]{6_latex.r}}
+\texttt{\scriptsize{\lstinputlisting[language=R]{6_latex.r}}}
     \centering
     \includegraphics[width=0.85\textwidth]{Rplot_diffNDVI_2017_2020.jpeg}\\
+\end{frame}
+
+% Slide 11
+\section{{Multivariate analysis}}
+\begin{frame}{Principal Component Analisys: }
+\texttt{\tiny{\lstinputlisting[language=R]{pca_latex.r}}}
+\end{frame}
+
+% Slide 11
+\begin{frame}%{Principal Component Analisys: }
+\texttt{\tiny{\lstinputlisting[language=R]{pca_fci_latex.r}}}
+\end{frame}
+
+% Slide 12
+\begin{frame}%{Principal Component Analisys: }
+\texttt{\tiny{\lstinputlisting[language=R]{pc1_latex.r}}}
+\centering
+    \includegraphics[width=1\textwidth]{Rplot_pc1_only_nci.jpeg}\\
+\end{frame}
+
+% Slide 13
+\begin{frame}%{Principal Component Analisys: }
+%\texttt{\tiny{\lstinputlisting[language=R]{pc1_latex.r}}}
+\small{I also plotted with the same method the pc1 from fci image: }\\
+\bigskip
+\centering
+    \includegraphics[width=1\textwidth]{Rplot_pc1_only_fci.jpeg}\\
+\end{frame}
+
+% Slide 14
+\begin{frame}{Spatial Variability}
+\scriptsize{Let's calculate the standard deviation on the pc1. }
+\texttt{\tiny{\lstinputlisting[language=R]{variab_nci_latex.r}}}
+\centering
+    \includegraphics[width=0.8\textwidth]{Rplot_variability_nci.jpeg}
+\end{frame}
+
+% Slide 15
+\begin{frame}
+%\scriptsize{}
+\texttt{\tiny{\lstinputlisting[language=R]{variab_fci_latext.r}}}
+\centering
+    \includegraphics[width=1\textwidth]{Rplot_Variab_fci.jpeg}
+\end{frame}
+
+% Slide 16
+\section{Spectral signatures}
+\begin{frame}{Spectral Signatures}
+\small{Spectral signature is a curve generate from  the variation of reflectance of a material or an object. Three particular trends have been identified: \textcolor{blue}{water}}, \textcolor{red}{soil} and \textcolor{green}{vegetation}.\\
+\bigskip
+\centering
+\includegraphics[width=0.7\textwidth]{spectral_signatures.jpg}
+\end{frame}
+
+% Slide 16
+\begin{frame}
+\small{I decided to analize only the spectral signatures of water in order to detect the turbidity. Let's start with the natural color image: }
+\texttt{\tiny{\lstinputlisting[language=R]{specsign_nci_latex.r}}}
+\centering
+    %\includegraphics[width=1\textwidth]{Rplot_Variab_fci.jpeg}
+\end{frame}
+
+% Slide 16
+\begin{frame}
+\texttt{\tiny{\lstinputlisting[language=R]{spectdataframes_latex.r}}}
+%\centering
+    %\includegraphics[width=1\textwidth]{Rplot_Variab_fci.jpeg}
+\end{frame}
+
+% Slide 17
+\begin{frame}
+\texttt{\tiny{\lstinputlisting[language=R]{spectsign_plot_latex.r}}}
+%\centering
+    \includegraphics[width=0.5\textwidth]{Rplot_spect_2017_nci.jpeg}\includegraphics[width=0.5\textwidth]{Rplot_spect_2020_nci.jpeg}
+\end{frame}
+
+% Slide 18
+\section{Lake Water Quality}
+\begin{frame}{\normalsize{Lake water quality analisys using Copernicus Global Land Service data}}
+The Sentinel-3 OLCI data al 1Km spatial resolution were not available for 2020. I used 2018 instead.\\
+\smallskip
+The three parameter to evaluate the lake water quality are: the \textcolor{brown}{turbidity}, the \textcolor{brown}{trophic state index} and the \textcolor{brown}{lake surface reflectances}.
+\texttt{\tiny{\lstinputlisting[language=R]{lwq_latex.r}}}
+\end{frame}
+
+% Slide 19
+\begin{frame}
+\texttt{\tiny{\lstinputlisting[language=R]{lwq_plot_latex.r}}}
+\centering
+\includegraphics[width=1\textwidth]{Rplot_lwq.jpeg}
+\end{frame}
+
+% Slide 20
+\begin{frame}{An experiment!}
+I was not really satisfied of the results, so I tried to analize data with 300m resolution (2017 and 2020) on qGis:\\
+\bigskip
+\includegraphics[width=0.5\textwidth]{lwq_qgis_2017.png}\includegraphics[width=0.5\textwidth]{lwq_qgis_2020.png}
+\end{frame}
+
+\begin{frame}%{An experiment!}
+
+\includegraphics[width=0.5\textwidth]{lwq_qgis_2020.png}\includegraphics[width=0.5\textwidth]{nci_2020_end.jpeg}
 \end{frame}
 
 \end{document}
