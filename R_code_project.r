@@ -353,4 +353,4 @@ plot(lwq_extent_2018, col = cl_turb, main = 'Lake water quality 2018')
 diff_lwq <- lwq_extent_2018 - lwq_extent_2017
 plot(diff_lwq, col = cl_turb, main = 'LWQ difference from 2017 to 2018')
 
-# ---------- END ----------- 
+# ---------- END -----------   
