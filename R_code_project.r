@@ -98,7 +98,7 @@ plot(diff_ndvi, col = cl_ndvi, main = 'Difference NDVI from 2017 to 2020')
 # 5)
 # PCA - Analisi delle componenti principali
 # Creo una palette
-# Palette più bella mai creata!
+# Palette:
 cl_pca <- colorRampPalette(c('darkblue', 'aquamarine', 'yellow', 'red')) (300)
 
 # Faccio la PCA sull'immagine a colori naturali.
@@ -196,13 +196,12 @@ plot(pc1_fci_2020, col = cl_pca, main = 'PC1 FCI 2020')
 cl_sd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200)
 # 6.1) per dato nci
 # funzione focal():
-pc1_2017_sd3 <- focal(pc1_2017, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
+pc1_2017_sd3 <- focal(pc1_2017, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd) 
 pc1_2020_sd3 <- focal(pc1_2020, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
 # plot():
 par(mfrow = c(1,2))
 plot(pc1_2017_sd3, col = cl_sd, main = '2017')
 plot(pc1_2020_sd3, col = cl_sd, main = '2020')
-
 
 # stessa cosa per fci
 pc1_fci_2017_sd3 <- focal(pc1_fci_2017, matrix(1/9, nrow = 3, ncol = 3), fun = sd)
@@ -222,10 +221,10 @@ plot(pc1_fci_2020_sd3, col = cl_sd, main = 'PC1 fci 2020')
 # 2017
 plotRGB(nci_2017, axes = TRUE, stretch = 'lin', main = 'Natural color image 2017')
 click(nci_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
-# x       y     cell X046017_2017_B4 X046017_2017_B3 X046017_2017_B2
-# 1 705750 6833640 28407248            9290            9654            8322
+# x       y            cell X046017_2017_B4 X046017_2017_B3 X046017_2017_B2
+# 1 705750 6833640 28407248            9290            9654            8322  -> prendo queste che sono dell'acqua
 # 2 608130 6810840 34515154            7352            7570            7475
-------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # 3 548340 6807630 35373548            9531            9492            8776
 # 4 661050 6753810 49802859            8418            8527            7768
 # 5 683400 6722790 58117998            8265            8033            7720
@@ -234,17 +233,17 @@ click(nci_2017, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = '
 plotRGB(nci_2020, axes = TRUE, stretch = 'lin', main = 'Natural color image 2020')
 click(nci_2020, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'red')
 
-# x       y     cell X046017_2020_B4 X046017_2020_B3 X046017_2020_B2
-# 1 687570 6829710 29577143           10543           10283            8779
+# x       y            cell X046017_2020_B4 X046017_2020_B3 X046017_2020_B2
+# 1 687570 6829710 29577143           10543           10283            8779   -> idem
 # 2 591630 6807330 35579991            7499            7935            7691
-------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # 3 547320 6816900 33010245            9431            9884            8308
 # 4 623160 6732420 55684389            9305            9266            8351
 # 5 688920 6716430 59977764            8804            9061            8248
 
 # inizio creando dei dataframes...
 # 2017
-band_nci <- c(4, 3, 2)
+band_nci <- c(4, 3, 2) # bande natural colors image: Red, green, blue.
 water_1_nci_2017 <- c(9290, 9654, 8322)
 water_2_nci_2017 <- c(7352, 7570, 7475)
 # 2020 
@@ -269,13 +268,13 @@ spect_water_nci_2020
 ggplot(spect_water_nci_2017, aes(x = band_nci)) +
 geom_line(aes(y = water_1_nci_2017), color = 'blue') +
 geom_line(aes(y = water_2_nci_2017), color = 'dark blue') +
-labs(x = "bands",y = "reflectance")
+labs(x = "bands", y = "reflectance")
 
 #...e 2020!
 ggplot(spect_water_nci_2020, aes(x = band_nci)) +
 geom_line(aes(y = water_1_nci_2020), color = 'blue') +
 geom_line(aes(y = water_2_nci_2020), color = 'dark blue') +
-labs(x = "bands",y = "reflectance")
+labs(x = "bands", y = "reflectance")
 
 # *****
 # Adesso voglio provare ad estrarre le firme spettrali della vegetazione dall'immagine fci
@@ -294,7 +293,7 @@ click(fci_2020, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = '
 # 2 582060 6873750 17754758           14830            8601            8961
 
 # dataframe...
-band_fci <- c(5, 4, 3)
+band_fci <- c(5, 4, 3) # bande false color image: NIR, red, green.
 land_1_fci_2017 <- c(11731, 8020, 8227)
 land_2_fci_2017 <- c(13257, 8253, 8473)
 # con data frame creo la tabella...
@@ -330,7 +329,7 @@ geom_line(aes(y = land_2_fci_2020), color = 'green') +
 labs(x = "bands",y = "reflectance")
 
 
-# PROVA QUASI FALLIMENTARE - valutazione qualità dell'acqua.
+# PROVA "QUASI" FALLIMENTARE - valutazione qualità dell'acqua.
 lwq_2017 <- brick("c_gls_LWQ1km_201709010000_GLOBE_OLCI_V1.2.nc")
 lwq_2018 <- brick("c_gls_LWQ1km_201806210000_GLOBE_OLCI_V1.2.nc")
 
@@ -343,7 +342,7 @@ ext
 # ymin       : 60 
 # ymax       : 63 
 lwq_extent_2017 <- crop(lwq_2017, ext)
-lwq_extent_2020 <- crop(lwq_2020, ext)
+lwq_extent_2018 <- crop(lwq_2018, ext)
 
 # plot
 par(mfrow = c(1, 2))
