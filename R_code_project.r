@@ -91,7 +91,7 @@ plot(ndvi_2017, col = cl_ndvi, main = 'Great Slave Lake, 31/8/2017 NDVI')
 plot(ndvi_2020, col = cl_ndvi, main = 'Great Slave Lake, 20/6/2020 NDVI')
 
 # Differenza tra i due NDVI
-diff_ndvi <- ndvi_2020 - ndvi_2017
+diff_ndvi <- ndvi_2017 - ndvi_2020
 plot(diff_ndvi, col = cl_ndvi, main = 'Difference NDVI from 2017 to 2020')
 
 
