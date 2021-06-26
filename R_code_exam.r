@@ -1,4 +1,4 @@
-# R_code_project.r
+# R_code_exam.r
 
 # Progetto esame
 # 0)
