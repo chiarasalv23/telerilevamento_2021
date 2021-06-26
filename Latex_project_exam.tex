@@ -67,16 +67,16 @@
 
 % Slide 6
 \begin{frame}%{Let's start coding!}
- I did the same procedure with other bands combinations, for False color image:  Bands: \textcolor{orange}{NIR}, \textcolor{red}{Red} and \textcolor{blue}{Blue}.
+ I did the same procedure with other bands combinations, for False color image:  Bands: \textcolor{orange}{NIR}, \textcolor{red}{Red} and \textcolor{green}{Green}.
     \texttt{\scriptsize{\lstinputlisting[language=R]{4_latex.r}}}
     \includegraphics[width=1\textwidth]{Rplot_fci_2017_2020.jpeg}\\
-    I obviously used a par() and did the same for 2020!!
+    I obviously used the function par()!
 \end{frame}
 
 % Slide 8
 \section{NDVI - Normalized Vegetation Index}
 \begin{frame}{NDVI - Normalized Vegetation Index}
-The NDVI is an index used to study the condition of vegetation and biomass. 
+The NDVI is an index used to study the health condition of vegetation and biomass. 
 \bigskip
 \begin{equation}
     NDVI = \frac{\textcolor{orange}{NIR} - \textcolor{red}{RED}}{\textcolor{orange}{NIR} + \textcolor{red}{RED}}
@@ -154,7 +154,7 @@ The difference NDVI plot:
 
 % Slide 16
 \begin{frame}
-\small{I decided to analize only the spectral signatures of water in order to detect the turbidity. Let's start with the natural color image: }
+\small{I decided to analyze the spectral signatures of water in order to detect the turbidity. Let's start with the natural color image: }
 \texttt{\tiny{\lstinputlisting[language=R]{specsign_nci_latex.r}}}
 \centering
     %\includegraphics[width=1\textwidth]{Rplot_Variab_fci.jpeg}
@@ -173,6 +173,23 @@ The difference NDVI plot:
 %\centering
     \includegraphics[width=0.5\textwidth]{Rplot_spect_2017_nci.jpeg}\includegraphics[width=0.5\textwidth]{Rplot_spect_2020_nci.jpeg}
 \end{frame}
+
+\begin{frame}
+I also tried to extract the spectral signatures of the vegetation from the false color image:
+\texttt{\tiny{\lstinputlisting[language=R]{vegetation_spect_17_latex.r}}}
+\normalsize{I Tried to do this procedure in order to study the trends.}
+\end{frame}
+
+\begin{frame}
+\texttt{\tiny{\lstinputlisting[language=R]{dataframes_fci_spect_latex.r}}}
+\end{frame}
+
+\begin{frame}
+\texttt{\tiny{\lstinputlisting[language=R]{spect_fci_plot_latex.r}}}
+\centering
+\includegraphics[width=0.4\textwidth]{Rplot_spect_CORRETTA_fci_2017.jpeg}\includegraphics[width=0.4\textwidth]{Rplot_spect_CORRETTO_fci_2020.jpeg}
+\end{frame}
+
 
 % Slide 18
 \section{Lake Water Quality}
@@ -194,12 +211,12 @@ The three parameter to evaluate the lake water quality are: the \textcolor{brown
 \begin{frame}{An experiment!}
 I was not really satisfied of the results, so I tried to analize data with 300m resolution (2017 and 2020) on QGIS:\\
 \bigskip
-\includegraphics[width=0.5\textwidth]{lwq_qgis_2017.png}\includegraphics[width=0.5\textwidth]{lwq_qgis_2020.png}
+\includegraphics[width=0.5\textwidth]{lwq_qgis_2017_blue - Copia.png}\includegraphics[width=0.5\textwidth]{lwq_qgis_2020_correttooo.png}
 \end{frame}
 
 \begin{frame}%{An experiment!}
 
-\includegraphics[width=0.5\textwidth]{lwq_qgis_2020.png}\includegraphics[width=0.5\textwidth]{nci_2020_end.jpeg}
+\includegraphics[width=0.5\textwidth]{lwq_qgis_2020_correttooo.png}\includegraphics[width=0.5\textwidth]{nci_2020_end.jpeg}
 \end{frame}
 
 \begin{frame}
@@ -212,3 +229,4 @@ I was not really satisfied of the results, so I tried to analize data with 300m 
 \end{frame}
 
 \end{document}
+
