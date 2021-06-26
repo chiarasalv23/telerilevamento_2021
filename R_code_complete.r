@@ -190,11 +190,11 @@ p224r63_2011
 #MULTITEMPORAL SET
 p224r63_1988 <- brick("p224r63_1988_masked.grd")
 p224r63_1988 #vedo tutte le info
-#eseguiamo un plottaggio selvaggio!
+#eseguiamo un plottaggio!
 plot(p224r63_1988) #vari sensori che hanno visto il mondo ad una certa lunghezza d'onda (varie bande)
 
 #passiamo direttamente al plottaggio RGB
-#______________________Promemoria Bande landsat_________________________
+#______________________Promemoria Bande landsat 7_______________________
 #B1: blu, B2: verde, B3: rosso, B4: NIR, B5: MIR, B6: TIR (FAR), B7: MIR
 #_______________________________________________________________________
 plotRGB(p224r63_1988, r = 3, g = 2, b = 1, stretch = "lin") #Plottaggio true colors!
@@ -238,7 +238,7 @@ plotRGB(p224r63_2011, r = 4, g = 3, b = 2, stretch = "hist")
 #carico pacchetto raster
 library(raster)
 install.package("gdal")
-#cambiamo la nostra workin' directory
+#cambiamo la nostra working directory
 setwd("C:/lab/greenland")
 
 #DAY 1
@@ -413,7 +413,7 @@ setwd("C:/lab/")
 #andiamo a caricare la prima immagine!
 p224r63_2011 <- brick("p224r63_2011_masked.grd")
 
-#Facciamo il plot selvaggggio!
+#Facciamo il plot!
 plot(p224r63)
 
 #visualizziamo le info relative all'immagine e le sue bande
@@ -479,7 +479,6 @@ soc <- unsuperClass(so, nClasses = 3) #immagine da classificare, num classi)
 plot(soc$map)
 set.seed(42) #per fare la classificazione vengono utilizzate le stesse repliche
 
-
 #classificazione non supervisionata con 20 classi
 sok <- unsuperClass(so, nClasses = 20)
 plot(sok$map)
@@ -540,7 +539,7 @@ ggRGB(p224r63,4,3,2, stretch="lin")
 p1 <- ggRGB(p224r63,3,2,1, stretch="lin")
 p2 <- ggRGB(p224r63,4,3,2, stretch="lin")
 
-grid.arrange(p1, p2, nrow = 2) # this needs gridExtra
+grid.arrange(p1, p2, nrow = 2) # this require gridExtra
 
 #-------------------------------------------------
 
@@ -557,12 +556,12 @@ defor2 <- brick("defor2.jpg")
 
 #facciamo un par per plottare le due immagini per vedere i cambiamenti nell'area
 par(mfrow = c(2,1))
-plotRGB(defor1, r = 1, g = 2, b = 3, stretch = 'lin')
-plotRGB(defor2, r = 1, g = 2, b = 3, stretch = 'lin')
+plotRGB(defor1, r = 1, g = 2, b = 3, stretch = 'lin') # prima della deforestazione
+plotRGB(defor2, r = 1, g = 2, b = 3, stretch = 'lin') # e dopo
 
 # DAY 2
 #richiamo i pacchetti che mi servono...
-require(RStoolbox) #per usare alcune funzioni per gli indici di vedetazione
+require(RStoolbox) #per usare alcune funzioni per gli indici di vegetazione
 #setto la working directory...
 #defor1 e defor2 -> sito in cui è stata fatta una forte deforestazione
 #siamo a Rio Peixoto Brazil! 
@@ -627,7 +626,7 @@ install.packages("rasterdiv")
 require(rasterdiv) #for world wide NDVI
 #plottiamo il nostro set copNDVI che contiene NDVI medio per ogni 21 Giugno dal 1999 al 2017
 plot(copNDVI)
-#togliamo l'acqua...
+
 #sovrascrivo il dataset senza i valori...
 copNDVI <- reclassify(copNDVI, cbind(253:255, NA)) #ai valori NDVI da 253 a 255 assegnamo NA (non assigned)
 plot(copNDVI)
@@ -656,7 +655,7 @@ plotRGB(defor1, r = 1, g = 2, b = 3, stretch = 'lin')
 plotRGB(defor2, r = 1, g = 2, b = 2, stretch = 'lin')
 
 #ggplot functions
-# è più accattivante, più cool! Mi da le coordinate spaziali del mio oggetto
+# è più accattivante! Mi da le coordinate spaziali del mio oggetto
 ggRGB(defor1, r = 1, g = 2, b = 3, stretch = 'lin') 
 ggRGB(defor2, r = 1, g = 2, b = 3, stretch = 'lin')
 
@@ -674,7 +673,7 @@ grid.arrange(p1, p2, nrow = 2) # li mettiamo su due righe
 #Caricare i pacchetti dell'altra volta... RStoolbox, raster, ggplot!
 #anche library(gridExtra)
 #set della working directory
-setwd("C:/lab/")
+# setwd("C:/lab/")
 #usiamo sempre i dati defor1.jpg e defor2.jpg
 defor1 <- brick("defor1.jpg")
 defor2 <- brick("defor2.jpg")
@@ -719,13 +718,13 @@ prop2
 #[2,] 5.835565e-06 0.5203224
 
 #build a dataframe!
-cover <- c("Forest", "Agriculture")
+cover <- c("Forest", "Agriculture") # queste sono le classi
 percent_1992 <- c(90.36, 9.63)
 percent_2006 <- c(52.03, 47.96)
 percentages <- data.frame(cover, percent_1992, percent_2006)
 percentages
 #     cover percent_1992 percent_2006
-# 1      Forest        90.36        52.03
+# 1      Forest        90.36        52.03 # sono percentuali di copertura!!!
 # 2 Agriculture         9.63        47.96
 
 #  LET'S PLOT EM ALL! Using ggplot()
@@ -773,7 +772,7 @@ sent
 # min values :          0,          0,          0,          0 
 # max values :        255,        255,        255,        255 
 
-# Assegnamo le singole bande a variabili per richiamarle più easy...
+# Assegnamo le singole bande a variabili per richiamarle più facilmente...
 nir <- sent$sentinel.1
 red <- sent$sentinel.2
 ndvi = (nir - red) / (nir + red)
@@ -837,7 +836,7 @@ library(viridis) # serve per i colori, per colorare i plot di ggplot in modo aut
 # Sposto la moving window e il processo riparte! 
 
 sentpca$map$PC1 #seleziono solo la PC1...
-# Calcoliamo la variabilità sulla pc1
+# Calcoliamo la variabilità spaziale sulla pc1
 # Moving window 3 x 3
 pc1sd3 <- focal(pc1, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
 clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200) 
@@ -924,7 +923,7 @@ plot(diff_no2, col = cl)
 
 # Fase 6: fare il par
 par(mfrow = c(1, 3))
->plot(EN_0001, col = cl, main = "No2 in January")
+plot(EN_0001, col = cl, main = "No2 in January")
 plot(EN_0013, col = cl, main = "No2 in March")
 plot(diff_no2, col = cl, main = "Difference (January - March)")
 
@@ -1011,9 +1010,9 @@ click(defor2, id = T, xy = T, cell = T, type = 'p', pch = 16, cex = 4, col = 'gr
 # creiamo una tabellina con 4 colonne
 # definiamo i dati...
 
-band <- c(1, 2, 3)
-forest <- c(206, 6, 19)
-water <- c(40, 99, 139)
+band <- c(1, 2, 3) # le bande
+forest <- c(206, 6, 19) # i valori di riflettanza registrati su quella banda
+water <- c(40, 99, 139) 
 
 # dataframe...
 spectrals <- data.frame(band, forest, water)
