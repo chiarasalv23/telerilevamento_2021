@@ -329,7 +329,7 @@ geom_line(aes(y = land_2_fci_2020), color = 'green') +
 labs(x = "bands",y = "reflectance")
 
 
-# PROVA "QUASI" FALLIMENTARE - valutazione qualità dell'acqua.
+# PROVA - valutazione qualità dell'acqua.
 lwq_2017 <- brick("c_gls_LWQ1km_201709010000_GLOBE_OLCI_V1.2.nc")
 lwq_2018 <- brick("c_gls_LWQ1km_201806210000_GLOBE_OLCI_V1.2.nc")
 
@@ -348,8 +348,5 @@ lwq_extent_2018 <- crop(lwq_2018, ext)
 par(mfrow = c(1, 2))
 plot(lwq_extent_2017, col = cl_turb, main = 'Lake water quality 2017')
 plot(lwq_extent_2018, col = cl_turb, main = 'Lake water quality 2018')
-
-diff_lwq <- lwq_extent_2018 - lwq_extent_2017
-plot(diff_lwq, col = cl_turb, main = 'LWQ difference from 2017 to 2018')
 
 # ---------- END -----------   
