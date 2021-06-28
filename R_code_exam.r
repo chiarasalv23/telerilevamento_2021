@@ -109,24 +109,7 @@ pca_2020 <- rasterPCA(nci_2020)
 # non serve che plotto...
 # vediamo le statistiche sulle componenti
 
-# visualizzo le informazioni...
-pca_2017$model
-# Call:
-# princomp(cor = spca, covmat = covMat[[1]])
-# Standard deviations:
-#    Comp.1    Comp.2    Comp.3 
-# 1228.7888  202.1254  161.2625 
-#  3  variables and  65220551 observations.
-
-pca_2020$model
-# Call:
-# princomp(cor = spca, covmat = covMat[[1]])
-# Standard deviations:
-#    Comp.1    Comp.2    Comp.3 
-# 1699.3247  330.2557  222.8458 
-#  3  variables and  65382171 observations.
-
-# Se però usiamo summary() otteniamo delle info più dettagliate circa la 
+# Se usiamo summary() otteniamo delle info più dettagliate circa la 
 # variabilità che spiegano le diverse bande.
 summary(pca_2017$model)
 # Importance of components:
@@ -196,6 +179,7 @@ plot(pc1_fci_2020, col = cl_pca, main = 'PC1 FCI 2020')
 cl_sd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow')) (200)
 # 6.1) per dato nci
 # funzione focal():
+# w = moving windon 3x3, fun = funzione deviazione standard! 
 pc1_2017_sd3 <- focal(pc1_2017, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd) 
 pc1_2020_sd3 <- focal(pc1_2020, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
 # plot():
