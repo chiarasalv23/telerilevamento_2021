@@ -82,17 +82,18 @@ plotRGB(land_water_comb_2020, axes = TRUE, stretch = 'lin', main = 'Band combina
 # 4)
 # NDVI - Indice di vegetazione normalizzato
 # Creo una palette che spieghi questo indice di vegetazione. 
-cl_ndvi <- colorRampPalette(c("dark red", "red", "orange", "yellow","lime green", "green", "dark green"))(500)) # Palette per NDVI
+cl_ndvi <- colorRampPalette(c("dark red", "orange", "yellow", "lime green", "dark green"))(500) # Palette per NDVI
 ndvi_2017 <- (nir_2017 - red_2017) / (nir_2017 + red_2017)
 ndvi_2020 <- (nir_2020 - red_2020) / (nir_2020 + red_2020)
 
-par(mfrow = c(1,2))
-plot(ndvi_2017, col = cl_ndvi, main = 'Great Slave Lake, 31/8/2017 NDVI')
-plot(ndvi_2020, col = cl_ndvi, main = 'Great Slave Lake, 20/6/2020 NDVI')
+# PLOT AGGIORNATO!!! (29/6)
+par(mfrow = c(1, 2))
+plot(ndvi_2017, col = cl_ndvi, main = 'Great Slave Lake, 31/8/2017 NDVI', zlim=c(-1,1))
+plot(ndvi_2020, col = cl_ndvi, main = 'Great Slave Lake, 20/6/2020 NDVI', zlim=c(-1,1))
 
 # Differenza tra i due NDVI
 diff_ndvi <- ndvi_2017 - ndvi_2020
-plot(diff_ndvi, col = cl_ndvi, main = 'Difference NDVI from 2017 to 2020')
+plot(diff_ndvi, col = cl_ndvi, main = 'Difference NDVI from 2017 to 2020', zlim=c(-1,1))
 
 
 # 5)
