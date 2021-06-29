@@ -163,13 +163,13 @@ pc1_fci_2020 <- pca_fci_2020$map$PC1
 
 # faccio un par() e plotto le pc1...
 par(mfrow = c(1, 2))
-plot(pc1_2017, col = cl_pca, main = 'PC1 2017')
-plot(pc1_2020, col = cl_pca, main = 'PC1 2020')
+plot(pc1_2017, col = cl_pca, main = 'PC1 2017', zlim=c(0,2500))
+plot(pc1_2020, col = cl_pca, main = 'PC1 2020', zlim=c(0,2500))
 
 # stessa cosa per fci
 par(mfrow = c(1,2))
-plot(pc1_fci_2017, col = cl_pca, main = 'PC1 FCI 2017')
-plot(pc1_fci_2020, col = cl_pca, main = 'PC1 FCI 2020')
+plot(pc1_fci_2017, col = cl_pca, main = 'PC1 FCI 2017', zlim=c(0,15000))
+plot(pc1_fci_2020, col = cl_pca, main = 'PC1 FCI 2020', zlim=c(0,15000))
 
 # 6)
 # Calcoliamo la deviazione standard sulla pc1 per entrambi gli anni!
@@ -185,16 +185,16 @@ pc1_2017_sd3 <- focal(pc1_2017, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
 pc1_2020_sd3 <- focal(pc1_2020, w = matrix(1/9, nrow = 3, ncol = 3), fun = sd)
 # plot():
 par(mfrow = c(1,2))
-plot(pc1_2017_sd3, col = cl_sd, main = '2017')
-plot(pc1_2020_sd3, col = cl_sd, main = '2020')
+plot(pc1_2017_sd3, col = cl_sd, main = '2017', zlim=c(0,500))
+plot(pc1_2020_sd3, col = cl_sd, main = '2020', zlim=c(0,500))
 
 # stessa cosa per fci
 pc1_fci_2017_sd3 <- focal(pc1_fci_2017, matrix(1/9, nrow = 3, ncol = 3), fun = sd)
 pc1_fci_2020_sd3 <- focal(pc1_fci_2020, matrix(1/9, nrow = 3, ncol = 3), fun = sd)
 # plot()
 par(mfrow = c(1,2))
-plot(pc1_fci_2017_sd3, col = cl_sd, main = 'PC1 fci 2017')
-plot(pc1_fci_2020_sd3, col = cl_sd, main = 'PC1 fci 2020')
+plot(pc1_fci_2017_sd3, col = cl_sd, main = 'PC1 fci 2017', zlim=c(0,500))
+plot(pc1_fci_2020_sd3, col = cl_sd, main = 'PC1 fci 2020', zlim=c(0,500))
 
 
 # 7) Firme spettrali
